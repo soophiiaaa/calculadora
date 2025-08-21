@@ -8,17 +8,30 @@
   </head>
   <body>
     <div class="container">
-      <div class="display">
-        <input type="text" />
-        <input type="text" />
+      <div class="header">
+        <div class="display">
+          <input type="text" />
+        </div>
+
+        <div class="header-icons">
+          <div class="icons">
+            <img src="./images/clock.png" alt="clock" id="clock" />
+            <img src="./images/ruler.png" alt="ruler" />
+            <img src="./images/formula.png" alt="formula" />
+          </div>
+
+          <button id="backspace">
+            <img src="./images/backspace.png" alt="backspace" />
+          </button>
+        </div>
       </div>
 
       <hr />
 
       <div class="keyboard">
         <div class="line">
-          <button>C</button>
-          <button>()</button>
+          <button id="c">C</button>
+          <button>( )</button>
           <button>%</button>
           <button>/</button>
         </div>
@@ -48,7 +61,7 @@
           <button>+/-</button>
           <button>0</button>
           <button>,</button>
-          <button>=</button>
+          <button id="equal">=</button>
         </div>
       </div>
     </div>
