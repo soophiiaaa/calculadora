@@ -10,7 +10,7 @@
     <div class="container">
       <div class="header">
         <div class="display">
-          <input type="text" />
+          <input id="result" type="text" />
         </div>
 
         <div class="header-icons">
@@ -28,42 +28,44 @@
 
       <hr />
 
-      <div class="keyboard">
+      <div class="keyboard" id="keyboard">
         <div class="line">
-          <button id="c">C</button>
-          <button>( )</button>
-          <button>%</button>
-          <button>/</button>
+          <button id="clear">C</button>
+          <button id="parentheses">( )</button>
+          <button id="porcentage">%</button>
+          <button id="division">/</button>
         </div>
 
         <div class="line">
           <button>7</button>
           <button>8</button>
           <button>9</button>
-          <button>X</button>
+          <button id="multipication">X</button>
         </div>
 
         <div class="line">
           <button>4</button>
           <button>5</button>
           <button>6</button>
-          <button>-</button>
+          <button id="subtraction">-</button>
         </div>
 
         <div class="line">
           <button>1</button>
           <button>2</button>
           <button>3</button>
-          <button>+</button>
+          <button id="addition">+</button>
         </div>
 
         <div class="line">
-          <button>+/-</button>
+          <button id="signal">+/-</button>
           <button>0</button>
-          <button>,</button>
+          <button id="comma">,</button>
           <button id="equal">=</button>
         </div>
       </div>
     </div>
+
+    <script src="script.js"></script>
   </body>
 </html>

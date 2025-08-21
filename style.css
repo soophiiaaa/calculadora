@@ -115,7 +115,7 @@ button:active {
   transform: scale(0.95);
 }
 
-#c {
+#clear {
   color: var(--c-color);
 }
 
