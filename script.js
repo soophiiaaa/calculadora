@@ -22,37 +22,31 @@ function main(event) {
     result.value = "";
   } else {
     if (button.tagName === "BUTTON") {
-      result.value += button.innerText;
+      if (
+        button.innerText === "+" ||
+        button.innerText === "-" ||
+        button.innerText === "X" ||
+        button.innerText === "/" ||
+        button.innerText === "="
+      ) {
+        result.value += " " + button.innerText + " ";
+      } else {
+        result.value += button.innerText;
+      }
     }
   }
 
   if (button.id === "equal") {
-    if (total.includes("+")) {
-      result.value = sum(total);
-    } else if (total.includes("-")) {
-      result.value = minus(total);
-    }
+    let teste = result.value;
+    calculate(teste);
   }
 }
 
-function sum(result) {
-  let arr = result.split("+");
-  let total = 0;
-
-  for (let i = 0; i < arr.length; i++) {
-    total += parseInt(arr[i]);
+function calculate(result) {
+  let newResult = result.trim();
+  let arr = newResult.split(" ");
+  if (arr.includes("=")) {
+    arr.pop();
   }
-
-  return total;
-}
-
-function minus(result) {
-  let arr = result.split("-");
-  let total = 0;
-
-  for (let i = 0; i < arr.length; i++) {
-    total -= parseInt(arr[i]);
-  }
-
-  return total;
+  console.log(arr);
 }
