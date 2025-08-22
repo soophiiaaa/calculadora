@@ -12,10 +12,11 @@ const signal = document.querySelector("#signal");
 const comma = document.querySelector("#comma");
 const equal = document.querySelector("#equal");
 
-keyboard.addEventListener("click", showValues);
+keyboard.addEventListener("click", main);
 
-function showValues(event) {
+function main(event) {
   let button = event.target;
+  let total = result.value;
 
   if (button.id === "clear") {
     result.value = "";
@@ -24,4 +25,19 @@ function showValues(event) {
       result.value += button.innerText;
     }
   }
+
+  if (button.id === "equal") {
+    result.value = sum(total);
+  }
+}
+
+function sum(result) {
+  let arr = result.split("+");
+  let total = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    total += parseInt(arr[i]);
+  }
+
+  return total;
 }
