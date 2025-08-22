@@ -16,10 +16,17 @@ keyboard.addEventListener("click", main);
 
 function main(event) {
   let button = event.target;
-  let total = result.value;
 
   if (button.id === "clear") {
     result.value = "";
+  } else if (
+    button.innerText === "( )" ||
+    button.innerText === "%" ||
+    button.innerText === "," ||
+    button.innerText === "+/-"
+  ) {
+    window.alert("Melhorias Futuras :)");
+    result.value += "";
   } else {
     if (button.tagName === "BUTTON") {
       if (
@@ -38,14 +45,19 @@ function main(event) {
 
   if (button.id === "equal") {
     let final = calculate(result.value);
-    result.value = final
+    result.value = final;
   }
+}
+
+function backSpace() {
+  let back = result.value.slice(0, result.value.length - 1);
+  return back;
 }
 
 function calculate(result) {
   let newResult = result.trim();
   let arr = newResult.split(" ");
-  
+
   if (arr.includes("=")) {
     arr.pop();
   }
