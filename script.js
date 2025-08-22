@@ -50,6 +50,7 @@ function calculate(result) {
   }
 
   arr = firstOp(arr);
+  arr = secondOp(arr);
   console.log(arr);
 }
 
@@ -74,6 +75,32 @@ function firstOp(arr) {
       newValue = parseInt(arr[val1D]) / parseInt(arr[val2D]);
       arr.splice(val1D, 3, newValue);
       d++;
+    }
+  }
+  return arr;
+}
+
+function secondOp(arr) {
+  let sum = 0;
+  let sub = 0;
+  let newValue = 0;
+
+  while (arr.includes("+") || arr.includes("-")) {
+    let indexSUM = arr.indexOf("+");
+    let indexSUB = arr.indexOf("-");
+    let val1SUM = indexSUM - 1;
+    let val2SUM = indexSUM + 1;
+    let val1SUB = indexSUB - 1;
+    let val2SUB = indexSUB + 1;
+
+    if (indexSUM !== -1 && (indexSUB === -1 || indexSUM < indexSUB)) {
+      newValue = parseInt(arr[val1SUM]) + parseInt(arr[val2SUM]);
+      arr.splice(val1SUM, 3, newValue);
+      sum++;
+    } else if (indexSUB !== -1) {
+      newValue = parseInt(arr[val1SUB]) - parseInt(arr[val2SUB]);
+      arr.splice(val1SUB, 3, newValue);
+      sub++;
     }
   }
   return arr;
