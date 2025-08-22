@@ -29,6 +29,7 @@ function main(event) {
     result.value += "";
   } else {
     if (button.tagName === "BUTTON") {
+      // this condition adds spaces between operators for better performance of functions
       if (
         button.innerText === "+" ||
         button.innerText === "-" ||
@@ -49,10 +50,11 @@ function main(event) {
   }
 }
 
-function backSpace() {
+// functionality in development
+/* function backSpace() {
   let back = result.value.slice(0, result.value.length - 1);
   return back;
-}
+} */
 
 function calculate(result) {
   let newResult = result.trim();
@@ -76,11 +78,13 @@ function firstOp(arr) {
   while (arr.includes("X") || arr.includes("/")) {
     let indexM = arr.indexOf("X");
     let indexD = arr.indexOf("/");
+    // these variables receive the values before and after the operator
     let val1M = indexM - 1;
     let val2M = indexM + 1;
     let val1D = indexD - 1;
     let val2D = indexD + 1;
 
+    // this conditional is used to perform operations regardless of the order of operators
     if (indexM !== -1 && (indexD === -1 || indexM < indexD)) {
       newValue = parseInt(arr[val1M]) * parseInt(arr[val2M]);
       arr.splice(val1M, 3, newValue);
@@ -102,11 +106,13 @@ function secondOp(arr) {
   while (arr.includes("+") || arr.includes("-")) {
     let indexSUM = arr.indexOf("+");
     let indexSUB = arr.indexOf("-");
+    // these variables receive the values before and after the operator
     let val1SUM = indexSUM - 1;
     let val2SUM = indexSUM + 1;
     let val1SUB = indexSUB - 1;
     let val2SUB = indexSUB + 1;
 
+    // this conditional is used to perform operations regardless of the order of operator
     if (indexSUM !== -1 && (indexSUB === -1 || indexSUM < indexSUB)) {
       newValue = parseInt(arr[val1SUM]) + parseInt(arr[val2SUM]);
       arr.splice(val1SUM, 3, newValue);
