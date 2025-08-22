@@ -27,7 +27,11 @@ function main(event) {
   }
 
   if (button.id === "equal") {
-    result.value = sum(total);
+    if (total.includes("+")) {
+      result.value = sum(total);
+    } else if (total.includes("-")) {
+      result.value = minus(total);
+    }
   }
 }
 
@@ -37,6 +41,17 @@ function sum(result) {
 
   for (let i = 0; i < arr.length; i++) {
     total += parseInt(arr[i]);
+  }
+
+  return total;
+}
+
+function minus(result) {
+  let arr = result.split("-");
+  let total = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    total -= parseInt(arr[i]);
   }
 
   return total;
