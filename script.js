@@ -48,5 +48,33 @@ function calculate(result) {
   if (arr.includes("=")) {
     arr.pop();
   }
+
+  arr = firstOp(arr);
   console.log(arr);
+}
+
+function firstOp(arr) {
+  let m = 0;
+  let d = 0;
+  let newValue = 0;
+
+  while (arr.includes("X") || arr.includes("/")) {
+    let indexM = arr.indexOf("X");
+    let indexD = arr.indexOf("/");
+    let val1M = indexM - 1;
+    let val2M = indexM + 1;
+    let val1D = indexD - 1;
+    let val2D = indexD + 1;
+
+    if (indexM !== -1 && (indexD === -1 || indexM < indexD)) {
+      newValue = parseInt(arr[val1M]) * parseInt(arr[val2M]);
+      arr.splice(val1M, 3, newValue);
+      m++;
+    } else if (indexD !== -1) {
+      newValue = parseInt(arr[val1D]) / parseInt(arr[val2D]);
+      arr.splice(val1D, 3, newValue);
+      d++;
+    }
+  }
+  return arr;
 }
