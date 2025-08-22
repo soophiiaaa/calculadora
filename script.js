@@ -37,21 +37,23 @@ function main(event) {
   }
 
   if (button.id === "equal") {
-    let teste = result.value;
-    calculate(teste);
+    let final = calculate(result.value);
+    result.value = final
   }
 }
 
 function calculate(result) {
   let newResult = result.trim();
   let arr = newResult.split(" ");
+  
   if (arr.includes("=")) {
     arr.pop();
   }
 
   arr = firstOp(arr);
   arr = secondOp(arr);
-  console.log(arr);
+  //console.log(arr);
+  return arr[0];
 }
 
 function firstOp(arr) {
