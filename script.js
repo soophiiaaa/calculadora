@@ -13,6 +13,7 @@ const comma = document.querySelector("#comma");
 const equal = document.querySelector("#equal");
 
 keyboard.addEventListener("click", main);
+result.addEventListener("keydown", checkLetter);
 
 function main(event) {
   let button = event.target;
@@ -124,4 +125,11 @@ function secondOp(arr) {
     }
   }
   return arr;
+}
+
+function checkLetter(event) {
+  let letters = /^[a-z]$/;
+  if (letters.test(event.key)) {
+    return event.preventDefault();
+  }
 }
