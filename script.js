@@ -22,7 +22,6 @@ function main(event) {
   } else if (
     button.innerText === "( )" ||
     button.innerText === "%" ||
-    button.innerText === "," ||
     button.innerText === "+/-"
   ) {
     window.alert("Melhorias Futuras :)");
@@ -71,7 +70,7 @@ function calculate(result) {
   arr = firstOp(arr);
   arr = secondOp(arr);
   //console.log(arr);
-  return arr[0];
+  return arr[0].toFixed(2);
 }
 
 function firstOp(arr) {
@@ -90,11 +89,11 @@ function firstOp(arr) {
 
     // this conditional is used to perform operations regardless of the order of operators
     if (indexM !== -1 && (indexD === -1 || indexM < indexD)) {
-      newValue = parseInt(arr[val1M]) * parseInt(arr[val2M]);
+      newValue = parseFloat(arr[val1M]) * parseFloat(arr[val2M]);
       arr.splice(val1M, 3, newValue);
       m++;
     } else if (indexD !== -1) {
-      newValue = parseInt(arr[val1D]) / parseInt(arr[val2D]);
+      newValue = parseFloat(arr[val1D]) / parseFloat(arr[val2D]);
       arr.splice(val1D, 3, newValue);
       d++;
     }
@@ -118,11 +117,11 @@ function secondOp(arr) {
 
     // this conditional is used to perform operations regardless of the order of operator
     if (indexSUM !== -1 && (indexSUB === -1 || indexSUM < indexSUB)) {
-      newValue = parseInt(arr[val1SUM]) + parseInt(arr[val2SUM]);
+      newValue = parseFloat(arr[val1SUM]) + parseFloat(arr[val2SUM]);
       arr.splice(val1SUM, 3, newValue);
       sum++;
     } else if (indexSUB !== -1) {
-      newValue = parseInt(arr[val1SUB]) - parseInt(arr[val2SUB]);
+      newValue = parseFloat(arr[val1SUB]) - parseFloat(arr[val2SUB]);
       arr.splice(val1SUB, 3, newValue);
       sub++;
     }
