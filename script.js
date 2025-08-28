@@ -44,6 +44,10 @@ function main(event) {
     }
   }
 
+  if (button.id === "backspace") {
+    result.value = backSpace();
+  }
+
   if (button.id === "equal") {
     let final = calculate(result.value);
     result.value = final;
@@ -51,10 +55,10 @@ function main(event) {
 }
 
 // functionality in development
-/* function backSpace() {
+function backSpace() {
   let back = result.value.slice(0, result.value.length - 1);
   return back;
-} */
+}
 
 function calculate(result) {
   let newResult = result.trim();
