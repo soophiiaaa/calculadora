@@ -33,8 +33,7 @@ function main(event) {
         button.innerText === "+" ||
         button.innerText === "-" ||
         button.innerText === "X" ||
-        button.innerText === "/" ||
-        button.innerText === "="
+        button.innerText === "/"
       ) {
         result.value += " " + button.innerText + " ";
       } else {
@@ -70,10 +69,13 @@ function calculate(result) {
   arr = firstOp(arr);
   arr = secondOp(arr);
   //console.log(arr);
-  return arr[0].toFixed(2);
+
+  let finalResult = arr[0];
+
+  return finalResult.toString().replace(".", ",");
 }
 
-function firstOp(arr) {
+function firstOp(arr) {''
   let m = 0;
   let d = 0;
   let newValue = 0;
