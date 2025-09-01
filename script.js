@@ -15,7 +15,11 @@ const equal = document.querySelector("#equal");
 keyboard.addEventListener("click", main);
 
 function main(event) {
-  let button = event.target;
+  let button = event.target.closest("button");
+
+  if (!button) {
+    return;
+  }
 
   if (button.id === "clear") {
     result.value = "";
@@ -23,7 +27,11 @@ function main(event) {
     button.id === "backspace" ||
     button.parentElement.id === "backspace"
   ) {
-    result.value = backSpace();
+    result.value = result.value.slice(0, -1);
+  } else if (button.id === "signal") {
+    let signal = result.value.split(" ");
+    signal = changeSignal(signal);
+    result.value = signal.join(" ");
   } else {
     if (button.tagName === "BUTTON") {
       // this condition adds spaces between operators for better performance of functions
@@ -47,18 +55,12 @@ function main(event) {
   }
 }
 
-// functionality in development
-function backSpace() {
-  let back = result.value.slice(0, -1);
-  return back;
-}
-
 function calculate(result) {
   let newResult = result.trim();
 
   newResult = newResult.replace(/,/g, ".");
 
-  let arr = newResult.split(" ");
+  let arr = newResult.split(" ").filter(element => element !== '');
 
   if (arr.includes("=")) {
     arr.pop();
@@ -82,21 +84,27 @@ function percentage(arr) {
   }
 
   let p = parseFloat(arr[index - 1]);
-  let final;
+  let finalValue;
 
-  if (index >= 2 && (arr[index - 2] === "+" || arr[index - 2] === "-")) {
-    let base = parseFloat(arr[index - 3]);
-    let operator = arr[index - 2];
-    final = base * (p / 100);
-    arr.splice(index - 3, 4, base, operator, final);
+  if (index > 1 && (arr[index - 2] === "+" || arr[index - 2] === "-")) {
+    let baseValue = parseFloat(arr[index - 3]);
+    finalValue = baseValue * (p / 100);
+    arr.splice(index - 1, 2, finalValue);
   } else {
-    final = p / 100;
-    arr.splice(index - 1, 2, final);
+    finalValue = p / 100;
+    arr.splice(index - 1, 2, finalValue);
   }
+
   if (arr.includes("%")) {
     return percentage(arr);
   }
 
+  return arr;
+}
+
+function changeSignal(arr) {
+  let number = parseFloat(arr[arr.length - 1]) * -1;
+  arr[arr.length - 1] = number;
   return arr;
 }
 
