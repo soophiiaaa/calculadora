@@ -24,13 +24,6 @@ function main(event) {
     button.parentElement.id === "backspace"
   ) {
     result.value = backSpace();
-  } else if (
-    button.innerText === "( )" ||
-    button.innerText === "%" ||
-    button.innerText === "+/-"
-  ) {
-    window.alert("Melhorias Futuras :)");
-    result.value += "";
   } else {
     if (button.tagName === "BUTTON") {
       // this condition adds spaces between operators for better performance of functions
@@ -38,7 +31,8 @@ function main(event) {
         button.innerText === "+" ||
         button.innerText === "-" ||
         button.innerText === "X" ||
-        button.innerText === "/"
+        button.innerText === "/" ||
+        button.innerText === "%"
       ) {
         result.value += " " + button.innerText + " ";
       } else {
@@ -70,6 +64,7 @@ function calculate(result) {
     arr.pop();
   }
 
+  arr = percentage(arr);
   arr = firstOp(arr);
   arr = secondOp(arr);
   //console.log(arr);
@@ -77,6 +72,32 @@ function calculate(result) {
   let finalResult = arr[0];
 
   return finalResult.toString().replace(".", ",");
+}
+
+function percentage(arr) {
+  let index = arr.indexOf("%");
+
+  if (index === -1) {
+    return arr;
+  }
+
+  let p = parseFloat(arr[index - 1]);
+  let final;
+
+  if (index >= 2 && (arr[index - 2] === "+" || arr[index - 2] === "-")) {
+    let base = parseFloat(arr[index - 3]);
+    let operator = arr[index - 2];
+    final = base * (p / 100);
+    arr.splice(index - 3, 4, base, operator, final);
+  } else {
+    final = p / 100;
+    arr.splice(index - 1, 2, final);
+  }
+  if (arr.includes("%")) {
+    return percentage(arr);
+  }
+
+  return arr;
 }
 
 function firstOp(arr) {
