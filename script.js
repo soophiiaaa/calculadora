@@ -20,6 +20,11 @@ function main(event) {
   if (button.id === "clear") {
     result.value = "";
   } else if (
+    button.id === "backspace" ||
+    button.parentElement.id === "backspace"
+  ) {
+    result.value = backSpace();
+  } else if (
     button.innerText === "( )" ||
     button.innerText === "%" ||
     button.innerText === "+/-"
@@ -42,10 +47,6 @@ function main(event) {
     }
   }
 
-  if (button.id === "backspace") {
-    result.value = backSpace();
-  }
-
   if (button.id === "equal") {
     let final = calculate(result.value);
     result.value = final;
@@ -54,12 +55,15 @@ function main(event) {
 
 // functionality in development
 function backSpace() {
-  let back = result.value.slice(0, result.value.length - 1);
+  let back = result.value.slice(0, -1);
   return back;
 }
 
 function calculate(result) {
   let newResult = result.trim();
+
+  newResult = newResult.replace(/,/g, ".");
+
   let arr = newResult.split(" ");
 
   if (arr.includes("=")) {
@@ -75,7 +79,8 @@ function calculate(result) {
   return finalResult.toString().replace(".", ",");
 }
 
-function firstOp(arr) {''
+function firstOp(arr) {
+  "";
   let m = 0;
   let d = 0;
   let newValue = 0;
