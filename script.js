@@ -21,13 +21,8 @@ function main(event) {
   if (!button) {
     return;
   }
-  if (button.id === "parenthesis") {
-    // pega a string e transforma num array caso existam parênteses
-    let arr = result.value.split(" ").filter((element) => element !== "");
-    // o array recebe a função que lida com parênteses e atualiza o resultado
-    let updatedArr = addParenthesis(arr);
-    result.value = updatedArr.join(" ");
-  } else if (button.id === "clear") {
+
+  if (button.id === "clear") {
     result.value = "";
   } else if (button.id === "backspace") {
     result.value = result.value.slice(0, -1);
@@ -71,6 +66,20 @@ function calculate(result) {
   if (arr.includes("=")) {
     arr.pop();
   }
+
+  /* while (arr.includes("(")) {
+    // variáveis que encontram os últimos parênteses
+    let lastP = arr.lastIndexOf("(");
+    let lastCP = arr.indexOf(")", lastP);
+    // variável que armazena a função que está dentro dos parênteses
+    let sub = arr.slice(lastP + 1, lastCP);
+    // aplicando os cálculos normalmente
+    let subFinal = percentage(sub);
+    subFinal = firstOp(subFinal);
+    subFinal = secondOp(subFinal);
+
+    arr.splice(lastP, lastCP - lastP + 1, subFinal[0]);
+  } */
 
   arr = percentage(arr);
   arr = firstOp(arr);
