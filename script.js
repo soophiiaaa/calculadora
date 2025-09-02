@@ -3,7 +3,7 @@ const result = document.querySelector("#result");
 const backspace = document.querySelector("#backspace");
 const keyboard = document.querySelector("#keyboard");
 const clear = document.querySelector("#clear");
-const parentheses = document.querySelector("#parentheses");
+const parenthesis = document.querySelector("#parenthesis");
 const porcentage = document.querySelector("#porcentage");
 const division = document.querySelector("#division");
 const multiplication = document.querySelector("#multiplication");
@@ -103,6 +103,33 @@ function percentage(arr) {
 function changeSignal(arr) {
   let number = parseFloat(arr[arr.length - 1]) * -1;
   arr[arr.length - 1] = number;
+  return arr;
+}
+
+function parenthesis(arr) {
+  let openP = 0;
+  let lastIndex = arr[arr.length - 1];
+
+  for (i = 0; i < arr.length; i++) {
+    if (arr[i] === "(") {
+      openP++;
+    }
+  }
+
+  if (
+    openP === 0 ||
+    lastIndex === "+" ||
+    lastIndex === "-" ||
+    lastIndex === "X" ||
+    lastIndex === "/"
+  ) {
+    arr.push("(");
+  } else if (
+    (openP > 0 && !isNaN(parseFloat(lastIndex))) ||
+    lastIndex === ")"
+  ) {
+    arr.push(")");
+  }
   return arr;
 }
 
