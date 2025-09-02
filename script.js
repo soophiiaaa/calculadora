@@ -21,8 +21,13 @@ function main(event) {
   if (!button) {
     return;
   }
-
-  if (button.id === "clear") {
+  if (button.id === "parenthesis") {
+    // pega a string e transforma num array caso existam parênteses
+    let arr = result.value.split(" ").filter((element) => element !== "");
+    // o array recebe a função que lida com parênteses e atualiza o resultado
+    let updatedArr = addParenthesis(arr);
+    result.value = updatedArr.join(" ");
+  } else if (button.id === "clear") {
     result.value = "";
   } else if (button.id === "backspace") {
     result.value = result.value.slice(0, -1);
@@ -30,9 +35,11 @@ function main(event) {
     let signal = result.value.split(" ");
     signal = changeSignal(signal);
     result.value = signal.join(" ");
+  } else if (button.id === "parenthesis") {
+    result.value += " " + "(" + " ";
   } else {
     if (button.tagName === "BUTTON") {
-      // this condition adds spaces between operators for better performance of functions
+      // a condição adiciona espaços entre um elemento e outro para melhor desempenho das funcionalidades
       if (
         button.innerText === "+" ||
         button.innerText === "-" ||
@@ -59,6 +66,7 @@ function calculate(result) {
   newResult = newResult.replace(/,/g, ".");
 
   let arr = newResult.split(" ").filter((element) => element !== "");
+  console.log(arr);
 
   if (arr.includes("=")) {
     arr.pop();
@@ -106,7 +114,7 @@ function changeSignal(arr) {
   return arr;
 }
 
-function parenthesis(arr) {
+function addParenthesis(arr) {
   let openP = 0;
   let lastIndex = arr[arr.length - 1];
 
@@ -142,13 +150,13 @@ function firstOp(arr) {
   while (arr.includes("X") || arr.includes("/")) {
     let indexM = arr.indexOf("X");
     let indexD = arr.indexOf("/");
-    // these variables receive the values before and after the operator
+    // variáveis que recebem os valores antes e depois dos operadores
     let val1M = indexM - 1;
     let val2M = indexM + 1;
     let val1D = indexD - 1;
     let val2D = indexD + 1;
 
-    // this conditional is used to perform operations regardless of the order of operators
+    // essa condição permite realizar cálculos independente da ordem dos operadores
     if (indexM !== -1 && (indexD === -1 || indexM < indexD)) {
       newValue = parseFloat(arr[val1M]) * parseFloat(arr[val2M]);
       arr.splice(val1M, 3, newValue);
@@ -170,13 +178,13 @@ function secondOp(arr) {
   while (arr.includes("+") || arr.includes("-")) {
     let indexSUM = arr.indexOf("+");
     let indexSUB = arr.indexOf("-");
-    // these variables receive the values before and after the operator
+    // variáveis que recebem os valores antes e depois dos operadores
     let val1SUM = indexSUM - 1;
     let val2SUM = indexSUM + 1;
     let val1SUB = indexSUB - 1;
     let val2SUB = indexSUB + 1;
 
-    // this conditional is used to perform operations regardless of the order of operator
+    // essa condição permite realizar cálculos independente da ordem dos operadores
     if (indexSUM !== -1 && (indexSUB === -1 || indexSUM < indexSUB)) {
       newValue = parseFloat(arr[val1SUM]) + parseFloat(arr[val2SUM]);
       arr.splice(val1SUM, 3, newValue);
