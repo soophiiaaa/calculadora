@@ -1,3 +1,4 @@
+const container = document.querySelector(".container");
 const result = document.querySelector("#result");
 const backspace = document.querySelector("#backspace");
 const keyboard = document.querySelector("#keyboard");
@@ -12,7 +13,7 @@ const signal = document.querySelector("#signal");
 const comma = document.querySelector("#comma");
 const equal = document.querySelector("#equal");
 
-keyboard.addEventListener("click", main);
+container.addEventListener("click", main);
 
 function main(event) {
   let button = event.target.closest("button");
@@ -23,10 +24,7 @@ function main(event) {
 
   if (button.id === "clear") {
     result.value = "";
-  } else if (
-    button.id === "backspace" ||
-    button.parentElement.id === "backspace"
-  ) {
+  } else if (button.id === "backspace") {
     result.value = result.value.slice(0, -1);
   } else if (button.id === "signal") {
     let signal = result.value.split(" ");
@@ -60,7 +58,7 @@ function calculate(result) {
 
   newResult = newResult.replace(/,/g, ".");
 
-  let arr = newResult.split(" ").filter(element => element !== '');
+  let arr = newResult.split(" ").filter((element) => element !== "");
 
   if (arr.includes("=")) {
     arr.pop();
