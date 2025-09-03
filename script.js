@@ -124,7 +124,12 @@ function changeSignal(arr) {
 }
 
 function isOperador(token) {
-  if (token === "+" || token === "-" || token === "/" || token === "%") {
+  if (
+    token === "+" ||
+    token === "-" ||
+    token === "/" ||
+    token === "%"
+  ) {
     return true;
   }
   return "";
@@ -138,12 +143,14 @@ function addParenthesis(result) {
   let lastToken = tokens[tokens.length - 1];
   let lastI = newResult[newResult.length - 1];
 
-  if (openCount > closeCount && /\d|\)/.test(lastI)) {
+  if (newResult === "") {
+    result.value += " ( ";
+  } else if (openCount > closeCount && /\d|\)/.test(lastI)) {
     result.value += " ) ";
-  } else if (!isOperador(lastToken)) {
+  } else if (!isOperador(lastToken) && lastToken !== "(") {
     result.value += " X ( ";
   } else {
-    result.value += " ( ";
+    result.value += " ( "
   }
 }
 
