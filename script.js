@@ -78,7 +78,7 @@ function calculate(result) {
     let sub = arr.slice(lastP + 1, lastCP);
 
     sub = percentage(sub);
-    sub = firstOp(sub);
+    sub = firstOp(result, sub);
     sub = secondOp(sub);
     let subResult = sub[0];
 
@@ -86,7 +86,7 @@ function calculate(result) {
   }
 
   arr = percentage(arr);
-  arr = firstOp(arr);
+  arr = firstOp(result, arr);
   arr = secondOp(arr);
   //console.log(arr);
 
@@ -168,7 +168,7 @@ function addParenthesis(result) {
   }
 }
 
-function firstOp(arr) {
+function firstOp(result, arr) {
   "";
   let m = 0;
   let d = 0;
@@ -182,6 +182,13 @@ function firstOp(arr) {
     let val2M = indexM + 1;
     let val1D = indexD - 1;
     let val2D = indexD + 1;
+    let divisor = parseFloat(arr[val2D]);
+
+    if (divisor === 0) {
+      window.alert("Não existe divisão por zero!");
+      result.value = "";
+      return arr;
+    }
 
     // essa condição permite realizar cálculos independente da ordem dos operadores
     if (indexM !== -1 && (indexD === -1 || indexM < indexD)) {
