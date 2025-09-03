@@ -133,6 +133,7 @@ function isOperador(token) {
   if (
     token === "+" ||
     token === "-" ||
+    token === "X" ||
     token === "/" ||
     token === "%"
   ) {
@@ -146,19 +147,24 @@ function addParenthesis(result) {
   // variáveis que contam quantos parênteses existem na string, caso não encontre, retorna null
   let openCount = (newResult.match(/\(/g) || []).length;
   let closeCount = (newResult.match(/\)/g) || []).length;
-  // separa o resultado num array dividido por espaços e remove elementos vazios 
+  // separa o resultado num array dividido por espaços e remove elementos vazios
   let tokens = newResult.split(" ").filter((t) => t !== "");
   let lastToken = tokens[tokens.length - 1]; // pega o último elemento significativo da expressão, ignorando os espaços
   let lastI = newResult[newResult.length - 1]; // pega o último caractere da string para decidir fechar ou não os parênteses
 
   if (newResult === "") {
     result.value += " ( ";
-  } else if (openCount > closeCount && /\d|\)/.test(lastI) /* verifica se o último caractere é um número ou parêntese */ ) {
+  } else if (
+    openCount > closeCount &&
+    /\d|\)/.test(
+      lastI
+    ) /* verifica se o último caractere é um número ou parêntese */
+  ) {
     result.value += " ) ";
   } else if (!isOperador(lastToken) && lastToken !== "(") {
     result.value += " X ( ";
   } else {
-    result.value += " ( "
+    result.value += " ( ";
   }
 }
 
