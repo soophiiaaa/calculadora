@@ -25,6 +25,7 @@ function main(event) {
   if (button.id === "clear") {
     result.value = "";
   } else if (button.id === "backspace") {
+    // elimina o último caractere do result
     result.value = result.value.slice(0, -1);
   } else if (button.id === "signal") {
     let signal = result.value.split(" ");
@@ -67,19 +68,7 @@ function calculate(result) {
     arr.pop();
   }
 
-  /* while (arr.includes("(")) {
-    // variáveis que encontram os últimos parênteses
-    let lastP = arr.lastIndexOf("(");
-    let lastCP = arr.indexOf(")", lastP);
-    // variável que armazena a função que está dentro dos parênteses
-    let sub = arr.slice(lastP + 1, lastCP);
-    // aplicando os cálculos normalmente
-    let subFinal = percentage(sub);
-    subFinal = firstOp(subFinal);
-    subFinal = secondOp(subFinal);
-
-    arr.splice(lastP, lastCP - lastP + 1, subFinal[0]);
-  } */
+  console.log(p);
 
   arr = percentage(arr);
   arr = firstOp(arr);
@@ -124,30 +113,18 @@ function changeSignal(arr) {
 }
 
 function addParenthesis(arr) {
-  let openP = 0;
-  let lastIndex = arr[arr.length - 1];
-
-  for (i = 0; i < arr.length; i++) {
-    if (arr[i] === "(") {
-      openP++;
-    }
-  }
+  let index = arr.indexOf("(");
 
   if (
-    openP === 0 ||
-    lastIndex === "+" ||
-    lastIndex === "-" ||
-    lastIndex === "X" ||
-    lastIndex === "/"
-  ) {
-    arr.push("(");
-  } else if (
-    (openP > 0 && !isNaN(parseFloat(lastIndex))) ||
-    lastIndex === ")"
+    typeof index + 1 === "number" &&
+    (index + 2 === "+" ||
+      index + 2 === "-" ||
+      index + 2 === "X" ||
+      index + 2 === "/") &&
+    typeof index + 3 === "number"
   ) {
     arr.push(")");
   }
-  return arr;
 }
 
 function firstOp(arr) {
