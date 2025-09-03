@@ -16,6 +16,7 @@ const equal = document.querySelector("#equal");
 container.addEventListener("click", main);
 
 function main(event) {
+  // garante que só funcionará com botões
   let button = event.target.closest("button");
 
   if (!button) {
@@ -57,12 +58,15 @@ function main(event) {
 }
 
 function calculate(result) {
+  // remove espaços em branco do início e fim da string
   let newResult = result.trim();
 
+  // substitui as , da string por .
   newResult = newResult.replace(/,/g, ".");
 
+  // transforma o resultado num array e remove elementos vazios
   let arr = newResult.split(" ").filter((element) => element !== "");
-  console.log(arr);
+  //console.log(arr);
 
   if (arr.includes("=")) {
     arr.pop();
@@ -102,7 +106,8 @@ function percentage(arr) {
   let finalValue;
 
   if (index > 1 && (arr[index - 2] === "+" || arr[index - 2] === "-")) {
-    let baseValue = parseFloat(arr[index - 3]);
+    // essa condição identifica se existe uma operação junto com a porcentagem de determinado valor
+    let baseValue = parseFloat(arr[index - 3]); // a variável recebe o valor anterior a porcentagem e seu operador
     finalValue = baseValue * (p / 100);
     arr.splice(index - 1, 2, finalValue);
   } else {
@@ -112,7 +117,7 @@ function percentage(arr) {
 
   if (arr.includes("%")) {
     return percentage(arr);
-  }
+  } // função recursiva para verificar se ainda existe o operador %
 
   return arr;
 }
@@ -123,6 +128,7 @@ function changeSignal(arr) {
   return arr;
 }
 
+//funcionalidade utilizada para verificar se existe operador antes de adicionar parênteses
 function isOperador(token) {
   if (
     token === "+" ||
@@ -137,15 +143,17 @@ function isOperador(token) {
 
 function addParenthesis(result) {
   let newResult = result.value.trim();
+  // variáveis que contam quantos parênteses existem na string, caso não encontre, retorna null
   let openCount = (newResult.match(/\(/g) || []).length;
   let closeCount = (newResult.match(/\)/g) || []).length;
+  // separa o resultado num array dividido por espaços e remove elementos vazios 
   let tokens = newResult.split(" ").filter((t) => t !== "");
-  let lastToken = tokens[tokens.length - 1];
-  let lastI = newResult[newResult.length - 1];
+  let lastToken = tokens[tokens.length - 1]; // pega o último elemento significativo da expressão, ignorando os espaços
+  let lastI = newResult[newResult.length - 1]; // pega o último caractere da string para decidir fechar ou não os parênteses
 
   if (newResult === "") {
     result.value += " ( ";
-  } else if (openCount > closeCount && /\d|\)/.test(lastI)) {
+  } else if (openCount > closeCount && /\d|\)/.test(lastI) /* verifica se o último caractere é um número ou parêntese */ ) {
     result.value += " ) ";
   } else if (!isOperador(lastToken) && lastToken !== "(") {
     result.value += " X ( ";
