@@ -32,7 +32,7 @@ function main(event) {
     signal = changeSignal(signal);
     result.value = signal.join(" ");
   } else if (button.id === "parenthesis") {
-    result.value += " " + "(" + " ";
+    addParenthesis(result);
   } else {
     if (button.tagName === "BUTTON") {
       // a condição adiciona espaços entre um elemento e outro para melhor desempenho das funcionalidades
@@ -68,7 +68,18 @@ function calculate(result) {
     arr.pop();
   }
 
-  console.log(p);
+  while (arr.includes("(")) {
+    let lastP = arr.lastIndexOf("(");
+    let lastCP = arr.indexOf(")", lastP);
+    let sub = arr.slice(lastP + 1, lastCP);
+
+    sub = percentage(sub);
+    sub = firstOp(sub);
+    sub = secondOp(sub);
+    let subResult = sub[0];
+
+    arr.splice(lastP, lastCP - lastP + 1, subResult);
+  }
 
   arr = percentage(arr);
   arr = firstOp(arr);
@@ -112,18 +123,27 @@ function changeSignal(arr) {
   return arr;
 }
 
-function addParenthesis(arr) {
-  let index = arr.indexOf("(");
+function isOperador(token) {
+  if (token === "+" || token === "-" || token === "/" || token === "%") {
+    return true;
+  }
+  return "";
+}
 
-  if (
-    typeof index + 1 === "number" &&
-    (index + 2 === "+" ||
-      index + 2 === "-" ||
-      index + 2 === "X" ||
-      index + 2 === "/") &&
-    typeof index + 3 === "number"
-  ) {
-    arr.push(")");
+function addParenthesis(result) {
+  let newResult = result.value.trim();
+  let openCount = (newResult.match(/\(/g) || []).length;
+  let closeCount = (newResult.match(/\)/g) || []).length;
+  let tokens = newResult.split(" ").filter((t) => t !== "");
+  let lastToken = tokens[tokens.length - 1];
+  let lastI = newResult[newResult.length - 1];
+
+  if (openCount > closeCount && /\d|\)/.test(lastI)) {
+    result.value += " ) ";
+  } else if (!isOperador(lastToken)) {
+    result.value += " X ( ";
+  } else {
+    result.value += " ( ";
   }
 }
 
